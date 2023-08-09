@@ -1,4 +1,4 @@
-project_name       = "tf-validate-project"
+project_name       = "cicd-tf-validate-project"
 environment        = "dev"
 source_repo_name   = "terraform-sample-repo"
 source_repo_branch = "main"
