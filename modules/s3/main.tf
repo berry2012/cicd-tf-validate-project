@@ -117,7 +117,18 @@ data "aws_iam_policy_document" "bucket_policy_doc_replication_bucket" {
   }
 }
 
+
+resource "aws_s3_bucket_ownership_controls" "replication_bucket" {
+  bucket = aws_s3_bucket.replication_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+
 resource "aws_s3_bucket_acl" "replication_bucket_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.replication_bucket]
+
   provider = aws.replication
   bucket   = aws_s3_bucket.replication_bucket.id
   acl      = "private"
@@ -196,7 +207,17 @@ data "aws_iam_policy_document" "bucket_policy_doc_codepipeline_bucket" {
   }
 }
 
+
+resource "aws_s3_bucket_ownership_controls" "codepipeline_bucket" {
+  bucket = aws_s3_bucket.codepipeline_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 resource "aws_s3_bucket_acl" "codepipeline_bucket_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.codepipeline_bucket]
+
   bucket = aws_s3_bucket.codepipeline_bucket.id
   acl    = "private"
 }

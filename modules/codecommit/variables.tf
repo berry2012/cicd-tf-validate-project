@@ -7,7 +7,7 @@
 variable "create_new_repo" {
   type        = bool
   description = "Flag for deciding if a new repository needs to be created"
-  default     = false
+  default     = true
 }
 
 variable "source_repository_name" {
